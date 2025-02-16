@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parssing_map.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aayad <aayad@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/11 18:31:58 by aayad             #+#    #+#             */
+/*   Updated: 2025/02/15 19:15:39 by aayad            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 static int check_line(char *line)
@@ -97,7 +109,7 @@ int check_map(char *map, t_data *w)
 	if (!w->lines)
 		return (free(w->lines), ft_putstr("🔻Error : invalid map\n"), 1);
 	w->spt = ft_split(w->lines, '\n');
-	if (map_is_valid(w->spt) == 1)
-		return (free(w->spt), ft_putstr("🔻Error : invalid map\n"), 1);
+	if (map_is_valid(w->spt) == 1 || flood_fill_check(w) == 1)
+		return (ft_free(w), ft_putstr("🔻Error : invalid map\n"), 1);
 	return (0);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   help_to_move.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aayad <aayad@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/11 18:31:29 by aayad             #+#    #+#             */
+/*   Updated: 2025/02/12 09:00:23 by aayad            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 int pos_in_colon(char **map)
@@ -64,8 +76,8 @@ int count_c(char **map)
 
 int free_and_exit(t_data *w)
 {
-	mlx_destroy_window(w->mlx, w->window);
-	free(w->spt);
-	ft_putstr("✅congratulation! you are win");
+	ft_free(w);
+	mlx_destroy_window(w->mlx, w->win);
+	ft_putstr("✅congratulation! you are win\n");
 	exit(0);
 }

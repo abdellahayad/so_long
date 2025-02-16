@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aayad <aayad@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/11 18:32:38 by aayad             #+#    #+#             */
+/*   Updated: 2025/02/15 21:15:33 by aayad            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
@@ -6,7 +18,7 @@
 #include <fcntl.h>
 #include <libc.h>
 
-# define size_pxl 32
+# define px 32
 
 
 typedef struct s_data
@@ -17,14 +29,14 @@ typedef struct s_data
 	char	**spt;
 	char	*str;
 	void	*mlx;
-	void	*window;
-	void	*imag;
-	int		row;
-	int		col;
+	void	*win;
+	void	*img;
+	int		r;
+	int		c;
 	int 	length;
 	int		width;
-	int		hei;
-	int		wid;
+	int		h;
+	int		w;
 	int		num;
 	int		count;
 }	t_data;
@@ -47,6 +59,9 @@ int		pos_in_row(char **map);
 int 	count_c(char **map);
 int		move_player(int key, t_data *w);
 int		free_and_exit(t_data *w);
+void	ft_free(t_data *w);
+char	*ft_strdup(const char *s1);
+int		flood_fill_check(t_data *w);
 
 
 #endif

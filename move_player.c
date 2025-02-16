@@ -1,96 +1,125 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   move_P.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aayad <aayad@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/11 18:31:52 by aayad             #+#    #+#             */
+/*   Updated: 2025/02/11 21:33:38 by aayad            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
-static int		move_right(t_data *w)
+static int	move_right(t_data *w)
 {
-	w->col = pos_in_colon(w->spt);
-	w->row = pos_in_row(w->spt);
+	w->c = pos_in_colon(w->spt);
+	w->r = pos_in_row(w->spt);
 	w->count = count_c(w->spt);
-	if (w->spt[w->row][w->col + 1] != '1' && w->spt[w->row][w->col + 1] != 'E')
+	if (w->spt[w->r][w->c + 1] != '1' && w->spt[w->r][w->c + 1] != 'E')
 	{
-		w->imag = mlx_xpm_file_to_image(w->mlx, "./image/player.xpm", &w->wid, &w->hei);
-		mlx_put_image_to_window(w->mlx, w->window, w->imag, (w->col + 1) * size_pxl, w->row * size_pxl);
-		w->imag = mlx_xpm_file_to_image(w->mlx, "./image/space.xpm", &w->wid, &w->hei);
-		mlx_put_image_to_window(w->mlx, w->window, w->imag, w->col * size_pxl, w->row * size_pxl);
-		w->spt[w->row][w->col] = '0';
-		w->spt[w->row][w->col + 1] = 'P';
+		w->img = mlx_xpm_file_to_image(w->mlx, "./img/P.xpm", &w->w, &w->h);
+		mlx_put_image_to_window(w->mlx, w->win,
+			w->img, (w->c + 1) * px, w->r * px);
+		w->img = mlx_xpm_file_to_image(w->mlx, "./img/C.xpm", &w->w, &w->h);
+		mlx_put_image_to_window(w->mlx, w->win, w->img, w->c * px, w->r * px);
+		w->spt[w->r][w->c] = '0';
+		w->spt[w->r][w->c + 1] = 'P';
 		w->str = int_to_str(w->num++);
-		mlx_string_put(w->mlx, w->window, 500, 0, 0xFFFFFF, w->str);
+		w->img = mlx_xpm_file_to_image(w->mlx, "./img/W.xpm", &w->w, &w->h);
+		mlx_put_image_to_window(w->mlx, w->win, w->img, 500, 0);
+		mlx_string_put(w->mlx, w->win, 500, 0, 0xFFFFFF, w->str);
+		free(w->str);
 	}
-	else if (w->spt[w->row][w->col + 1] == 'E' && w->count == 0)
+	else if (w->spt[w->r][w->c + 1] == 'E' && w->count == 0)
 	{
 		free_and_exit(w);
 	}
 	return (0);
 }
 
-static int		move_down(t_data *w)
+static int	move_down(t_data *w)
 {
-	w->col = pos_in_colon(w->spt);
-	w->row = pos_in_row(w->spt);
+	w->c = pos_in_colon(w->spt);
+	w->r = pos_in_row(w->spt);
 	w->count = count_c(w->spt);
-	if (w->spt[w->row + 1][w->col] != '1' && w->spt[w->row + 1][w->col] != 'E')
+	if (w->spt[w->r + 1][w->c] != '1' && w->spt[w->r + 1][w->c] != 'E')
 	{
-		w->imag = mlx_xpm_file_to_image(w->mlx, "./image/player.xpm", &w->wid, &w->hei);
-		mlx_put_image_to_window(w->mlx, w->window, w->imag, (w->col) * size_pxl, (w->row + 1) * size_pxl);
-		w->imag = mlx_xpm_file_to_image(w->mlx, "./image/space.xpm", &w->wid, &w->hei);
-		mlx_put_image_to_window(w->mlx, w->window, w->imag, w->col * size_pxl, w->row * size_pxl);
-		w->spt[w->row][w->col] = '0';
-		w->spt[w->row + 1][w->col] = 'P';
+		w->img = mlx_xpm_file_to_image(w->mlx, "./img/P.xpm", &w->w, &w->h);
+		mlx_put_image_to_window(w->mlx, w->win,
+			w->img, (w->c) * px, (w->r + 1) * px);
+		w->img = mlx_xpm_file_to_image(w->mlx, "./img/C.xpm", &w->w, &w->h);
+		mlx_put_image_to_window(w->mlx, w->win, w->img, w->c * px, w->r * px);
+		w->spt[w->r][w->c] = '0';
+		w->spt[w->r + 1][w->c] = 'P';
 		w->str = int_to_str(w->num++);
-		mlx_string_put(w->mlx, w->window, 500, 0, 0xFFFFFF, w->str);
+		w->img = mlx_xpm_file_to_image(w->mlx, "./img/W.xpm", &w->w, &w->h);
+		mlx_put_image_to_window(w->mlx, w->win, w->img, 500, 0);
+		mlx_string_put(w->mlx, w->win, 500, 0, 0xFFFFFF, w->str);
+		free(w->str);
 	}
-	else if (w->spt[w->row + 1][w->col] == 'E' && w->count == 0)
+	else if (w->spt[w->r + 1][w->c] == 'E' && w->count == 0)
 	{
 		free_and_exit(w);
 	}
 	return (0);
 }
 
-static int		move_left(t_data *w)
+static int	move_left(t_data *w)
 {
-	w->col = pos_in_colon(w->spt);
-	w->row = pos_in_row(w->spt);
+	w->c = pos_in_colon(w->spt);
+	w->r = pos_in_row(w->spt);
 	w->count = count_c(w->spt);
-	if (w->spt[w->row][w->col - 1] != '1' && w->spt[w->row][w->col - 1] != 'E')
+	if (w->spt[w->r][w->c - 1] != '1' && w->spt[w->r][w->c - 1] != 'E')
 	{
-		w->imag = mlx_xpm_file_to_image(w->mlx, "./image/player.xpm", &w->wid, &w->hei);
-		mlx_put_image_to_window(w->mlx, w->window, w->imag, (w->col - 1) * size_pxl, w->row * size_pxl);
-		w->imag = mlx_xpm_file_to_image(w->mlx, "./image/space.xpm", &w->wid, &w->hei);
-		mlx_put_image_to_window(w->mlx, w->window, w->imag, w->col * size_pxl, w->row * size_pxl);
-		w->spt[w->row][w->col] = '0';
-		w->spt[w->row][w->col - 1] = 'P';
+		w->img = mlx_xpm_file_to_image(w->mlx, "./img/P.xpm", &w->w, &w->h);
+		mlx_put_image_to_window(w->mlx, w->win,
+			w->img, (w->c - 1) * px, w->r * px);
+		w->img = mlx_xpm_file_to_image(w->mlx, "./img/C.xpm", &w->w, &w->h);
+		mlx_put_image_to_window(w->mlx, w->win, w->img, w->c * px, w->r * px);
+		w->spt[w->r][w->c] = '0';
+		w->spt[w->r][w->c - 1] = 'P';
 		w->str = int_to_str(w->num++);
-		mlx_string_put(w->mlx, w->window, 500, 0, 0xFFFFFF, w->str);
+		w->img = mlx_xpm_file_to_image(w->mlx, "./img/W.xpm", &w->w, &w->h);
+		mlx_put_image_to_window(w->mlx, w->win, w->img, 500, 0);
+		mlx_string_put(w->mlx, w->win, 500, 0, 0xFFFFFF, w->str);
+		free(w->str);
 	}
-	else if (w->spt[w->row][w->col - 1] == 'E' && w->count == 0)
+	else if (w->spt[w->r][w->c - 1] == 'E' && w->count == 0)
 	{
 		free_and_exit(w);
 	}
 	return (0);
 }
 
-static int		move_up(t_data *w)
+static int	move_up(t_data *w)
 {
-	w->col = pos_in_colon(w->spt);
-	w->row = pos_in_row(w->spt);
+	w->c = pos_in_colon(w->spt);
+	w->r = pos_in_row(w->spt);
 	w->count = count_c(w->spt);
-	if (w->spt[w->row - 1][w->col] != '1' && w->spt[w->row - 1][w->col] != 'E')
+	if (w->spt[w->r - 1][w->c] != '1' && w->spt[w->r - 1][w->c] != 'E')
 	{
-		w->imag = mlx_xpm_file_to_image(w->mlx, "./image/player.xpm", &w->wid, &w->hei);
-		mlx_put_image_to_window(w->mlx, w->window, w->imag, (w->col) * size_pxl, (w->row - 1) * size_pxl);
-		w->imag = mlx_xpm_file_to_image(w->mlx, "./image/space.xpm", &w->wid, &w->hei);
-		mlx_put_image_to_window(w->mlx, w->window, w->imag, w->col * size_pxl, w->row * size_pxl);
-		w->spt[w->row][w->col] = '0';
-		w->spt[w->row - 1][w->col] = 'P';
+		w->img = mlx_xpm_file_to_image(w->mlx, "./img/P.xpm", &w->w, &w->h);
+		mlx_put_image_to_window(w->mlx,
+			w->win, w->img, (w->c) * px, (w->r - 1) * px);
+		w->img = mlx_xpm_file_to_image(w->mlx, "./img/C.xpm", &w->w, &w->h);
+		mlx_put_image_to_window(w->mlx, w->win, w->img, w->c * px, w->r * px);
+		w->spt[w->r][w->c] = '0';
+		w->spt[w->r - 1][w->c] = 'P';
 		w->str = int_to_str(w->num++);
-		mlx_string_put(w->mlx, w->window, 500, 0, 0xFFFFFF, w->str);
+		w->img = mlx_xpm_file_to_image(w->mlx, "./img/W.xpm", &w->w, &w->h);
+		mlx_put_image_to_window(w->mlx, w->win, w->img, 500, 0);
+		mlx_string_put(w->mlx, w->win, 500, 0, 0xFFFFFF, w->str);
+		free(w->str);
 	}
-	else if (w->spt[w->row - 1][w->col] == 'E' && w->count == 0)
+	else if (w->spt[w->r - 1][w->c] == 'E' && w->count == 0)
 	{
 		free_and_exit(w);
 	}
 	return (0);
 }
+
 int	move_player(int key, t_data *w)
 {
 	if (key == 124)

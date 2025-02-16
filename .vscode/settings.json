@@ -1,8 +1,5 @@
 {
 	"files.associations": {
-		"__mutex_base": "cpp",
-		"chrono": "cpp",
-		"ratio": "cpp",
-		"complex": "c"
+		"so_long.h": "c"
 	}
 }
